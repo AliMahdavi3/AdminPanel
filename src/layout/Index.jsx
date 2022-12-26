@@ -1,14 +1,13 @@
-import React from 'react'
-import Navbar from './Navbar'
-import Sidebar from './Sidebar'
-
+import React from "react";
+import Navbar from "./navbar/Navbar";
+// import Loading from "./loader/Loading";
 const Index = () => {
   return (
     <>
-        <Navbar/>
-        <Sidebar/>
+      <Navbar />
+      {/* <Loading /> */}
     </>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;
