@@ -5,7 +5,7 @@ function App() {
   return (
     
      <>
-        <Index/>
+     <Index/>
      </>
   
   );

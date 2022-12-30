@@ -1,11 +1,14 @@
 import React from "react";
-import Navbar from "./navbar/Navbar";
-// import Loading from "./loader/Loading";
+import Dashboard from "../pages/dashboard/Dashboard";
+import Sidebar from "./sidebar/Sidebar";
+
 const Index = () => {
   return (
     <>
-      <Navbar />
-      {/* <Loading /> */}
+      <Sidebar />
+      <section>
+        <Dashboard/>
+      </section>
     </>
   );
 };
