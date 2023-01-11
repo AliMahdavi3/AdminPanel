@@ -42,12 +42,14 @@ body {
 .sidebar {
   width: 300px;
   height: 100%;
-  background-color: rgb(13, 11, 29);
+  background: -webkit-linear-gradient(to right, #323435, #7e8682);
+  background: linear-gradient(to right, #05101b, #1e434d);
   transition: all 0.5s;
   position: absolute;
   top: 0;
   border-radius: 15px 0px 0px 15px;
   z-index: 9999;
+  transform: translate(-10px);
 }
 
 .sidebar-img {
@@ -128,6 +130,16 @@ body {
   height: 10vh;
   border-radius: 0px 0px 15px 15px;
   box-shadow: 10px 10px 40px;
+}
+
+.list-offcanvs {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.link-a {
+  text-decoration: none;
+  color: #000000;
 }
 
 .navbar h2 {
@@ -213,6 +225,12 @@ body {
   box-shadow: 10px 20px 20px;
 }
 
+.table-dashboard {
+  background-color: #08aeea;
+  background-image: linear-gradient(0deg, #08aeea 0%, #2af598 100%);
+  box-shadow: 10px 30px 40px;
+}
+
 .text_truncate {
   font-size: 20px;
   font-family: "myfont4";
@@ -254,3 +272,176 @@ body {
 }
 
 /* ---------------------------Dashboard end---------------------------------------- */
+/* ---------------------------Category---------------------------------------- */
+.dir-ltr input {
+  direction: ltr;
+}
+
+.pagination {
+  box-shadow: 10px 30px 40px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.category-style {
+  margin-top: 100px;
+}
+
+.search-box {
+  cursor: pointer;
+}
+
+.category-text {
+  font-family: "myfont2";
+}
+
+.table-style {
+  background-color: #fa8bff;
+  background-image: linear-gradient(
+    45deg,
+    #da67e0 0%,
+    #0e9cc4 52%,
+    #2bff88 90%
+  );
+  box-shadow: 10px 30px 40px;
+}
+.table-style-product {
+  background-color: #fa8bff;
+  background-image: linear-gradient(
+    45deg,
+    #da67e0 0%,
+    #0e9cc4 52%,
+    #2bff88 90%
+  );
+  box-shadow: 10px 30px 40px;
+}
+
+.pagination {
+  border-radius: 5px;
+}
+
+.disabled {
+  pointer-events: none !important;
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 500px) {
+  .table-style-product {
+    font-size: 5px;
+  }
+}
+
+/* ---------------------------Category end---------------------------------------- */
+/* --------------------------- Login --------------------------------------------- */
+
+.form-switch .form-check-input {
+  width: 2em;
+  margin-right: 1.5em;
+}
+
+.login form {
+  border: none;
+  margin-top: 50px;
+  box-shadow: 10px 30px 40px;
+  border-radius: 10px;
+}
+
+.input-100 {
+  outline: none;
+  border: none;
+  box-shadow: 5px 6px 8px;
+}
+
+.input-100:hover {
+  box-shadow: 4px 4px 4px #000000;
+}
+
+.spinner-login {
+  font-size: 5px;
+}
+
+.login-btn button {
+  border: none;
+  border-radius: 5px;
+  box-shadow: 10px 30px 40px black;
+  background: #04835d;
+  color: moccasin;
+}
+
+.login-btn button:active {
+  background-color: #be064d;
+  transition: 0.1s;
+  box-shadow: 5px 6px 7px black;
+}
+/* --------------------------- Login end --------------------------------------------- */
+
+/* -------------------------------------- Loader    ---------------------------------- */
+
+.load {
+  height: 100vh;
+  background-color: #ff3cac;
+  background-image: linear-gradient(
+    225deg,
+    #ff3cac 0%,
+    #784ba0 50%,
+    #2b86c5 100%
+  );
+}
+
+.loader {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  border: 5px solid;
+  border-color: rgb(172, 197, 30) rgb(114, 9, 44) transparent transparent;
+  box-sizing: border-box;
+  animation: rotation 2s linear infinite;
+}
+.loader::after,
+.loader::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border: 5px solid;
+  border-color: transparent transparent #10c46a #6f0c9c;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  animation: rotationBack 3.5s linear infinite;
+  transform-origin: center center;
+}
+.loader::before {
+  width: 150px;
+  height: 150px;
+  border-color: #fff #fff transparent transparent;
+  animation: rotation 3s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotationBack {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+/* --------------------------------Loader end-------------------------------------- */

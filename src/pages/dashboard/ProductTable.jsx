@@ -3,11 +3,11 @@ import React from "react";
 const ProductTable = () => {
   return (
     <div className="col-12 col-md-6">
-      <p className="text-center table-dashboard mt-3 text-dark">
+      <p className="text-center  mt-3 text-dark">
         محصولات رو به اتمام
       </p>
-      <table className="table table-responsive text-center table-hover">
-        <thead className="table-secondary bg-warning ">
+      <table className="table table-responsive text-center table-bordered table-hover">
+        <thead className="table-secondary ">
           <tr className="fw-bold">
             <th>#</th>
             <th>دسته</th>
@@ -16,7 +16,7 @@ const ProductTable = () => {
             <th>عملیات</th>
           </tr>
         </thead>
-        <tbody className="fw-bold bg-success bg-gradient">
+        <tbody className="fw-bold table-style-product">
           <tr>
             <td>1</td>
             <td>دسته شماره فلان</td>

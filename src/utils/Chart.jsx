@@ -23,7 +23,7 @@ const BarChart = () => {
       {
         label: "نمودار فروش ماه",
         backgroundColor: [
-            "#8a2ba2",
+            "#549eb9",
             "#0000ff",
             "#008080",
             "#008000",
