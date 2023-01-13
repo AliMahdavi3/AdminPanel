@@ -1,7 +1,5 @@
 import React from "react";
 import CategoryContextContainer from "../../context/categoryContext";
-import AddAttributes from "./AddAttributes";
-import AddCategory from "./AddCategory";
 import TableCategory from "./TableCategory";
 
 const Category = () => {
@@ -16,7 +14,6 @@ const Category = () => {
             مدیریت دسته بندی محصولات
           </h4>
           <TableCategory />
-          <AddAttributes />
         </div>
       </CategoryContextContainer>
     </>

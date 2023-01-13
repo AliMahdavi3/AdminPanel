@@ -327,6 +327,12 @@ body {
   opacity: 0.5;
 }
 
+.shadow_alert {
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.89);
+  border-radius: 5px;
+  background-color: rgba(180, 52, 52, 0.418);
+}
+
 @media screen and (max-width: 500px) {
   .table-style-product {
     font-size: 5px;

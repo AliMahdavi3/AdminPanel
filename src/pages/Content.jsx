@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Logout from "./auth/Logout";
 import Brands from "./brands/Brands";
 import CartEdit from "./cart/CartEdit";
+import AddAttributes from "./category/attr/AddAttributes";
 import Category from "./category/Category";
 import CategoryChildren from "./category/CategoryChildren";
 import Colors from "./colors/Colors";
@@ -27,6 +28,7 @@ const Content = () => {
           <Route path="/Categories" element={<Category />} >
             <Route path=":categoryId" element={<CategoryChildren/>}/>
           </Route>
+          <Route path="/Categories/:categoryId/atrributes" element={<AddAttributes />} />
           <Route path="/Product" element={<Product />} />
           <Route path="/Colors" element={<Colors />} />
           <Route path="/Guaranties" element={<Guaranties />} />

@@ -3,7 +3,11 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
 import PaginatedTable from "../../components/PaginatedTable";
-import { getCategoryService } from "../../services/category";
+import {
+  deleteCategoryService,
+  getCategoryService,
+} from "../../services/category";
+import { Alert, Confirm } from "../../utils/Alert";
 import { convertDateToJalali } from "../../utils/convertDate";
 import AddCategory from "./AddCategory";
 import Actions from "./tableAddition/Actions";
@@ -30,6 +34,25 @@ const TableCategory = () => {
     }
   };
 
+  const handleDeleteCategory = async (rowData) => {
+    if (
+      await Confirm(
+        "حذف دسته بندی",
+        `ایا از حذف ${rowData.title} اطمینان داارید ؟`
+      )
+    ) {
+      try {
+        const res = await deleteCategoryService(rowData.id);
+        if (res.status == 200) {
+          setData(data.filter(d=>d.id !== rowData.id))
+          Alert("انجام شد", res.data.message, "success");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   useEffect(() => {
     handleGetCategories();
   }, [params, forceRender]);
@@ -51,7 +74,12 @@ const TableCategory = () => {
     },
     {
       title: "عملیات",
-      elements: (rowData) => <Actions rowData={rowData} />,
+      elements: (rowData) => (
+        <Actions
+          rowData={rowData}
+          handleDeleteCategory={handleDeleteCategory}
+        />
+      ),
     },
   ];
 
@@ -69,7 +97,7 @@ const TableCategory = () => {
         dataInfo={dataInfo}
         additionField={additionField}
         searchParams={searchParams}
-        numOfPage={2}
+        numOfPage={5}
         loading={loading}
       >
         <AddCategory setForceRender={setForceRender} />
