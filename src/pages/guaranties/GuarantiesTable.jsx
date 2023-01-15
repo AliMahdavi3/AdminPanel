@@ -1,9 +1,93 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import PaginatedTable from "../../components/PaginatedTable";
+import {
+  deleteGuarantiesService,
+  getAllGuarantiesService,
+} from "../../services/guaranties";
+import { Alert, Confirm } from "../../utils/Alert";
+import AddGuaranties from "./AddGuaranties";
+import Actions from "./tableAdditional/Actions";
 
 const GuarantiesTable = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [guaranteeToEdit, setGuaranteeToEdit] = useState(null);
+
+  const dataInfo = [
+    { field: "id", title: "#" },
+    { field: "title", title: "عنوان" },
+    { field: "descriptions", title: "توضیحات" },
+    { field: "length", title: "مدت گارانتی" },
+    { field: "length_unit", title: "واحد" },
+  ];
+
+  const additionField = [
+    {
+      title: "عملیات",
+      elements: (rowData) => (
+        <Actions
+          rowData={rowData}
+          handleDeleteGuarantee={handleDeleteGuarantee}
+          setGuaranteeToEdit={setGuaranteeToEdit}
+        />
+      ),
+    },
+  ];
+
+  const searchParams = {
+    title: "جستجو",
+    placeholder: "قسمتی از عنوان را وارد کنید",
+    searchField: "title",
+  };
+
+  const handleGetAllGuarantees = async () => {
+    setLoading(true);
+    const res = await getAllGuarantiesService();
+    res && setLoading(false);
+    console.log(res);
+    if (res.status === 200) {
+      setData(res.data.data);
+    }
+  };
+
+  const handleDeleteGuarantee = async (guarantee) => {
+    if (
+      await Confirm(
+        "حذف گارانتی",
+        `ایا از حذف ${guarantee.title} اطمینان دارید ؟ `
+      )
+    ) {
+      const res = await deleteGuarantiesService(guarantee.id);
+      if (res.status === 200) {
+        Alert("انجام شد!", res.data.message, "success");
+        setData((lastData) => lastData.filter((d) => d.id != guarantee.id));
+      }
+    }
+  };
+
+  useEffect(() => {
+    handleGetAllGuarantees();
+  }, []);
+
   return (
     <>
-      <table className="table table-responsive text-center table-hover table-style-product table-bordered">
+      <PaginatedTable
+        data={data}
+        dataInfo={dataInfo}
+        additionField={additionField}
+        searchParams={searchParams}
+        loading={loading}
+        numOfPage={5}
+      >
+        <AddGuaranties
+          setData={setData}
+          guaranteeToEdit={guaranteeToEdit}
+          setGuaranteeToEdit={setGuaranteeToEdit}
+        />
+      </PaginatedTable>
+      {/* <table className="table table-responsive text-center table-hover table-style-product table-bordered">
         <thead className="table-secondary">
           <tr>
             <th>#</th>
@@ -61,7 +145,7 @@ const GuarantiesTable = () => {
             </a>
           </li>
         </ul>
-      </nav>
+      </nav> */}
     </>
   );
 };
