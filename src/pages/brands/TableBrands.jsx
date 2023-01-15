@@ -1,78 +1,81 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import PaginatedTable from "../../components/PaginatedTable";
+import { deleteBrandService, getAllBrandService } from "../../services/brand";
+import { apiPath } from "../../services/httpService";
+import { Alert, Confirm } from "../../utils/Alert";
+import AddBrands from "./AddBrands";
+import Actions from "./tableAdditional/Actions";
 
 const TableBrands = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [brandToEdit, setBrandToEdit] = useState(null)
+
+  const dataInfo = [
+    { field: "id", title: "#" },
+    { field: "original_name", title: "عنوان لاتین" },
+    { field: "persian_name", title: "عنوان فارسی" },
+    { field: "descriptions", title: "توضیحات" },
+  ];
+
+  const additionField = [
+    {
+      title: "لوگو",
+      elements: (rowData) =>
+        rowData.logo ? (
+          <img src={apiPath+"/"+rowData.logo} width="40" />
+        ) : null,
+    },
+    {
+      title: "عملیات",
+      elements: (rowData) => <Actions handleDeleteBrands={handleDeleteBrands} rowData={rowData} setBrandToEdit={setBrandToEdit}/>,
+    },
+  ];
+
+  const searchParams = {
+    title: "جستجو",
+    placeholder: "قسمتی از عنوان را وارد کنید",
+    searchField: "original_name",
+  };
+
+  const handlGetAllBrands = async () => {
+    setLoading(true);
+    const res = await getAllBrandService();
+    console.log(res);
+    res && setLoading(false);
+    if (res.status === 200) {
+      setData(res.data.data);
+    }
+  };
+
+  const handleDeleteBrands = async (brand) => {
+    if(await Confirm('حذف برند', `ایا از حذف ${brand.original_name} اطمینان دارید ؟`)) {
+      const res = await deleteBrandService(brand.id)
+      if(res.status === 200) {
+        Alert("انجام شد!", res.data.message, "success")
+        setData(lastData=> lastData.filter(d=>d.id != brand.id))
+      }
+    }
+  }
+
+  useEffect(() => {
+    handlGetAllBrands();
+  }, []);
+
   return (
     <>
-      <table className="table table-responsive text-center table-hover table-style-product table-bordered">
-        <thead className="table-secondary">
-          <tr>
-            <th>#</th>
-            <th>عنوان</th>
-            <th>عنوان فارسی</th>
-            <th>توضیحات</th>
-            <th>لوگو</th>
-            <th>عملیات</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>brand 1</td>
-            <td>برند شماره 1</td>
-            <td>توضیحات اجمالی در مورد این برند</td>
-            <td>
-              <img src="/assets/image/logonomy-1671176306947.png" width="50" />
-            </td>
-            <td>
-              <i
-                className="bi bi-pencil-square fs-4 text-warning mx-1 hoverable_text pointer has_tooltip"
-                title="ویرایش برند"
-                data-bs-toggle="modal"
-                data-bs-placement="top"
-                data-bs-target="#add_brand_modal"
-              ></i>
-              <i
-                className="bi bi-x fs-4 text-danger mx-1 hoverable_text pointer has_tooltip"
-                title="حذف برند"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-              ></i>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <nav
-        aria-label="Page navigation example"
-        className="d-flex justify-content-center"
+      <PaginatedTable
+        data={data}
+        dataInfo={dataInfo}
+        searchParams={searchParams}
+        numOfPage={5}
+        additionField={additionField}
+        loading={loading}
       >
-        <ul className="pagination dir_ltr">
-          <li className="page-item">
-            <a className="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#">
-              1
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#">
-              2
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#">
-              3
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+        <AddBrands setData={setData} brandToEdit={brandToEdit} setBrandToEdit={setBrandToEdit}/>
+      </PaginatedTable>
     </>
   );
 };

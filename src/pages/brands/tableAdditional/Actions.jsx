@@ -1,6 +1,6 @@
 import React from "react";
 
-const Actions = () => {
+const Actions = ({rowData, setBrandToEdit, handleDeleteBrands}) => {
   return (
     <>
       <i
@@ -9,12 +9,14 @@ const Actions = () => {
         data-bs-toggle="modal"
         data-bs-placement="top"
         data-bs-target="#add_brand_modal"
+        onClick={()=>setBrandToEdit(rowData)}
       ></i>
       <i
         className="bi bi-x fs-4 text-danger mx-1 hoverable_text pointer has_tooltip"
         title="حذف برند"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
+        onClick={()=>handleDeleteBrands(rowData)}
       ></i>
     </>
   );

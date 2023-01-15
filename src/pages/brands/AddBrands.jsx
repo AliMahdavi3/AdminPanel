@@ -1,86 +1,91 @@
+import { Form, Formik } from "formik";
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import FormikControl from "../../components/form/FormikControl";
+import SubmitButton from "../../components/form/SubmitButton";
 import ModalContainer from "../../components/ModalContainer";
+import { apiPath } from "../../services/httpService";
+import { initialValues, onSubmit, validationSchema } from "./core";
 
-const AddBrands = () => {
+const AddBrands = ({ setData, brandToEdit, setBrandToEdit }) => {
+
+  const [reInitialValues, setReInitialValues] = useState(null)
+
+  useEffect(()=>{
+    if(brandToEdit) setReInitialValues({
+      original_name: brandToEdit.original_name,
+      persian_name: brandToEdit.persian_name || "",
+      descriptions: brandToEdit.descriptions || "",
+      logo: null,
+    })
+    else setReInitialValues(null)
+  },[brandToEdit])
+
   return (
     <>
       <button
         className="btn btn-success d-flex p-0 px-2 justify-content-center align-items-center"
         data-bs-toggle="modal"
         data-bs-target="#add_brand_modal"
+        onClick={()=>setBrandToEdit(null)}
       >
         <i className="bi bi-plus fs-3 text-light"></i>
       </button>
       <ModalContainer
-        fullScreen={true}
+        fullScreen={false}
         id={"add_brand_modal"}
-        title={"افزودن برند"}
+        title={brandToEdit ? "ویرایش برند" : "افزودن برند"}
       >
         <div className="container">
           <div className="row justify-content-center">
-            <div className="col-12">
-              <div className="input-group my-3 dir-ltr">
-                <input
+            <Formik
+              initialValues={reInitialValues || initialValues}
+              onSubmit={(values, actions) => onSubmit(values, actions, setData, brandToEdit)}
+              validationSchema={validationSchema}
+              enableReinitialize 
+            >
+              <Form>
+                <FormikControl
+                  control="input"
                   type="text"
-                  className="form-control"
+                  label="عنوان لاتین برند"
                   placeholder="کیبرد را در حالت لاتین قرار دهید"
+                  name="original_name"
                 />
-                <span className="input-group-text w_8rem justify-content-center">
-                  عنوان لاتیتن برند
-                </span>
-              </div>
-            </div>
-            <div className="col-12">
-              <div className="input-group my-3 dir-ltr">
-                <input
+                <FormikControl
+                  control="input"
                   type="text"
-                  className="form-control"
+                  label="عنوان فارسی برند"
                   placeholder="کیبرد را در حالت فارسی قرار دهید"
+                  name="persian_name"
                 />
-                <span className="input-group-text w_8rem justify-content-center">
-                  عنوان فارسی برند
-                </span>
-              </div>
-            </div>
-            <div className="col-12">
-              <div className="input-group my-3 dir-ltr">
-                <input
-                  type="text"
-                  className="form-control"
+                <FormikControl
+                  control="textarea"
+                  label="توضیحات برند"
                   placeholder="متن کوتاه در مورد برند"
+                  name="descriptions"
                 />
-                <span className="input-group-text w_8rem justify-content-center">
-                  توضیحات برند
-                </span>
-              </div>
-            </div>
-            <div className="col-12">
-              <div className="input-group mb-3 dir-ltr">
-                <input
-                  type="file"
-                  className="form-control"
+
+                {brandToEdit ? (
+                  <div className="text-center col-12 py-3">
+                    <img src={apiPath + "/" + brandToEdit.logo} width="60" />
+                  </div>
+                ) : null}
+
+
+                <FormikControl
+                  control="file"
+                  label="تصویر"
                   placeholder="تصویر"
+                  name="logo"
                 />
-                <span className="input-group-text w_6rem justify-content-center">
-                  تصویر
-                </span>
-              </div>
-            </div>
-            <div className="col-12">
-              <div className="input-group mb-3 dir-ltr">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="یک کلمه در مورد تصویر"
-                />
-                <span className="input-group-text w_6rem justify-content-center">
-                  توضیح تصویر
-                </span>
-              </div>
-            </div>
-            <div className="btn_box text-center col-12 col-md-6 col-lg-8 mt-4">
-              <button className="btn btn-primary">ذخیره</button>
-            </div>
+
+                <div className="text-center col-12">
+                  <SubmitButton />
+                </div>
+              </Form>
+            </Formik>
           </div>
         </div>
       </ModalContainer>
