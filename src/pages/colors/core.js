@@ -1,0 +1,34 @@
+import * as Yup from "yup";
+import { addNewColorService, editColorService } from "../../services/color";
+import { Alert } from "../../utils/Alert";
+
+export const initialValues = {
+  title: "",
+  code: "#563d7c",
+};
+
+export const onSubmit = async (values, actions, setData, colorToEdit) => {
+  if (colorToEdit) {
+    const res = await editColorService(colorToEdit.id, values);
+    if (res.status === 200) {
+      Alert("انجام شد !", res.data.message, "success");
+      setData((lastData) => {
+        let newData = [...lastData];
+        let index = newData.findIndex((d) => d.id == colorToEdit.id);
+        newData[index] = res.data.data;
+        return newData;
+      });
+    }
+  } else {
+    const res = await addNewColorService(values);
+    if (res.status === 201) {
+      Alert("انجام شد !", res.data.message, "success");
+      setData((lastData) => [...lastData, res.data.data]);
+    }
+  }
+};
+
+export const validationSchema = Yup.object({
+  title: Yup.string().required("لطفا این قسمت را پر کنید"),
+  code: Yup.string().required("لطفا این قسمت را پر کنید"),
+});

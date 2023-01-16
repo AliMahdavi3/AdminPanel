@@ -1,95 +1,84 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import PaginatedTable from "../../components/PaginatedTable";
+import { deleteColorService, getAllColorService } from "../../services/color";
+import { Alert, Confirm } from "../../utils/Alert";
+import AddColors from "./AddColors";
+import Actions from "./tableAdditional/Actions";
 
 const ColorsTable = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [colorToEdit, setColorToEdit] = useState(null);
+
+  const dataInfo = [
+    { field: "id", title: "#" },
+    { field: "title", title: "عنوان" },
+    { field: "code", title: "کد رنگ" },
+  ];
+
+  const additionField = [
+    {
+      title: "رنگ",
+      elements: (rowData) => (
+        <div
+          className="w-100 h-100 d-block"
+          style={{ background: rowData.code, color: rowData.code }}
+        >
+          ...
+        </div>
+      ),
+    },
+    {
+      title: "عملیات",
+      elements: (rowData) => (
+        <Actions rowData={rowData} setColorToEdit={setColorToEdit} handleDeleteColors={handleDeleteColors} />
+      ),
+    },
+  ];
+
+  const searchParams = {
+    title: "جستجو",
+    placeholder: "قسمتی از عنوان را وارد کنید",
+    searchField: "title",
+  };
+
+  const handleGetColors = async () => {
+    setLoading(true);
+    const res = await getAllColorService();
+    res && setLoading(false);
+    if (res.status === 200) {
+      setData(res.data.data);
+    }
+  };
+
+  const handleDeleteColors = async (color) => {
+    if (await Confirm("حذف رنگ", `ایا از حذف ${color.title} اطمینان دارید؟`)) {
+      const res = await deleteColorService(color.id);
+      if (res.status === 200) {
+        Alert("انجام شد !", res.data.message, "success");
+        setData((lastData) => lastData.filter((d) => d.id != color.id));
+      }
+    }
+  };
+
+  useEffect(() => {
+    handleGetColors();
+  }, []);
+
   return (
     <>
-      <table className="table table-responsive text-center table-hover table-bordered table-style-product">
-        <thead className="table-secondary">
-          <tr>
-            <th>#</th>
-            <th>نام رنگ</th>
-            <th>کد رنگ</th>
-            <th>رنگ</th>
-            <th>عملیات</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>مشکی</td>
-            <td>#000000</td>
-            <td className="p-2">
-              <div
-                className="w-100 h-100 d-block"
-                style={{ background: "#000", color: "#000" }}
-              >
-                ...
-              </div>
-            </td>
-            <td>
-              <i
-                className="bi bi-x text-danger mx-1 fs-4 pointer"
-                title="حذف رنگ"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-              ></i>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>قزمز</td>
-            <td className="dir_ltr">#f44336</td>
-            <td className="p-2">
-              <div
-                className="w-100 h-100 d-block"
-                style={{ background: "#f44336", color: "#f44336" }}
-              >
-                ...
-              </div>
-            </td>
-            <td>
-              <i
-                className="bi bi-x text-danger mx-1 fs-4 pointer"
-                title="حذف رنگ"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-              ></i>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <nav
-        aria-label="Page navigation example"
-        className="d-flex justify-content-center"
+      <PaginatedTable
+        data={data}
+        loading={loading}
+        dataInfo={dataInfo}
+        additionField={additionField}
+        searchParams={searchParams}
+        numOfPage={5}
       >
-        <ul className="pagination dir_ltr">
-          <li className="page-item">
-            <a className="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#">
-              1
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#">
-              2
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#">
-              3
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+        <AddColors setData={setData} colorToEdit={colorToEdit} setColorToEdit={setColorToEdit}/>
+      </PaginatedTable>
     </>
   );
 };
