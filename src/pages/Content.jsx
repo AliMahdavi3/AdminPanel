@@ -14,7 +14,10 @@ import Guaranties from "./guaranties/Guaranties";
 import ManageDelivery from "./managedelivery/ManageDelivery";
 import Orders from "./orders/Orders";
 import Permissions from "./permissions/Permissions";
+import AddProduct from "./product/AddProduct";
+import ProductGallery from "./product/gallery/ProductGallery";
 import Product from "./product/Product";
+import SetAttribute from "./product/setAttr/SetAttribute";
 import Questions from "./questions/Questions";
 import Roles from "./roles/Roles";
 import User from "./users/User";
@@ -30,6 +33,9 @@ const Content = () => {
           </Route>
           <Route path="/Categories/:categoryId/atrributes" element={<AddAttributes />} />
           <Route path="/Product" element={<Product />} />
+          <Route path="/product/add-product" element={<AddProduct />} />
+          <Route path="/product/set-attr" element={<SetAttribute />} />
+          <Route path="/product/gallery" element={<ProductGallery />} />
           <Route path="/Colors" element={<Colors />} />
           <Route path="/Guaranties" element={<Guaranties />} />
           <Route path="/Brands" element={<Brands />} />

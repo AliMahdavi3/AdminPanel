@@ -1,7 +1,7 @@
 import React from "react";
-import AddProduct from "./AddProduct";
+// import AddProduct from "./AddProduct";
 import ProductTable from "./ProductTable";
-import SetAttribute from "./SetAttribute";
+// import SetAttribute from "./SetAttribute";
 
 const Product = () => {
   return (
@@ -10,7 +10,7 @@ const Product = () => {
       className="manage_product_section main_section container-fluid category-style"
     >
       <h4 className="text-center my-3 category-text">مدیریت محصولات</h4>
-      <div className="row justify-content-between">
+      {/* <div className="row justify-content-between">
         <div className="col-10 col-md-6 col-lg-4">
           <div className="input-group mb-3 ">
             <input
@@ -25,9 +25,9 @@ const Product = () => {
     <AddProduct/>
         
         </div>
-      </div>
+      </div> */}
     <ProductTable/>
-    <SetAttribute/>
+    {/* <SetAttribute/> */}
     </div>
   );
 };

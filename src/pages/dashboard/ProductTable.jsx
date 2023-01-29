@@ -28,7 +28,7 @@ const ProductTable = () => {
                 title="نادیده گرفتن"
                 data-bs-toggle="tooltip"
                 data-bs-placement="top"
-              ></i>
+              ></i> 
             </td>
           </tr>
           <tr>

@@ -16,7 +16,7 @@ const BarChart = () => {
     "دی",
     "بهمن",
     "اسفند",
-  ];
+  ];   
   const data = {
     labels: labels,
     datasets: [
