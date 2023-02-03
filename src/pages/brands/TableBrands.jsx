@@ -11,26 +11,31 @@ import Actions from "./tableAdditional/Actions";
 const TableBrands = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [brandToEdit, setBrandToEdit] = useState(null)
+  const [brandToEdit, setBrandToEdit] = useState(null);
 
   const dataInfo = [
     { field: "id", title: "#" },
     { field: "original_name", title: "عنوان لاتین" },
     { field: "persian_name", title: "عنوان فارسی" },
     { field: "descriptions", title: "توضیحات" },
-  ];
-
-  const additionField = [
     {
+      field: null,
       title: "لوگو",
       elements: (rowData) =>
         rowData.logo ? (
-          <img src={apiPath+"/"+rowData.logo} width="40" />
+          <img src={apiPath + "/" + rowData.logo} width="40" />
         ) : null,
     },
     {
+      field: null,
       title: "عملیات",
-      elements: (rowData) => <Actions handleDeleteBrands={handleDeleteBrands} rowData={rowData} setBrandToEdit={setBrandToEdit}/>,
+      elements: (rowData) => (
+        <Actions
+          handleDeleteBrands={handleDeleteBrands}
+          rowData={rowData}
+          setBrandToEdit={setBrandToEdit}
+        />
+      ),
     },
   ];
 
@@ -51,14 +56,19 @@ const TableBrands = () => {
   };
 
   const handleDeleteBrands = async (brand) => {
-    if(await Confirm('حذف برند', `ایا از حذف ${brand.original_name} اطمینان دارید ؟`)) {
-      const res = await deleteBrandService(brand.id)
-      if(res.status === 200) {
-        Alert("انجام شد!", res.data.message, "success")
-        setData(lastData=> lastData.filter(d=>d.id != brand.id))
+    if (
+      await Confirm(
+        "حذف برند",
+        `ایا از حذف ${brand.original_name} اطمینان دارید ؟`
+      )
+    ) {
+      const res = await deleteBrandService(brand.id);
+      if (res.status === 200) {
+        Alert("انجام شد!", res.data.message, "success");
+        setData((lastData) => lastData.filter((d) => d.id != brand.id));
       }
     }
-  }
+  };
 
   useEffect(() => {
     handlGetAllBrands();
@@ -71,10 +81,13 @@ const TableBrands = () => {
         dataInfo={dataInfo}
         searchParams={searchParams}
         numOfPage={5}
-        additionField={additionField}
         loading={loading}
       >
-        <AddBrands setData={setData} brandToEdit={brandToEdit} setBrandToEdit={setBrandToEdit}/>
+        <AddBrands
+          setData={setData}
+          brandToEdit={brandToEdit}
+          setBrandToEdit={setBrandToEdit}
+        />
       </PaginatedTable>
     </>
   );

@@ -1,80 +1,83 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
+import {Outlet} from 'react-router-dom'
+import AddButtonLink from '../../components/AddButtonLink';
+import PaginatedTable from '../../components/PaginatedTable';
+import { deleteDiscountService, getAllDiscountsService } from '../../services/discounts';
+import { Alert, Confirm } from '../../utils/Alert';
+import { convertDateToJalali } from '../../utils/convertDate';
+import Actions from "./additionalTable/Actions"
 
-const DiscountTable = () => {
-  return (
-    <>
-      <table className="table table-responsive text-center table-hover table-bordered table-style-product">
-        <thead className="table-secondary">
-          <tr>
-            <th>#</th>
-            <th>عنوان</th>
-            <th>کد</th>
-            <th>درصد تخفیف</th>
-            <th>تا تاریخ</th>
-            <th>برای</th>
-            <th>عملیات</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>تخفیف شماره 1</td>
-            <td>takhfif1</td>
-            <td>39%</td>
-            <td>1400/10/12</td>
-            <td>همه</td>
-            <td>
-              <i
-                className="bi bi-pencil-square fs-4 text-warning mx-1 pointer "
-                title="ویرایش کد"
-                data-bs-toggle="modal"
-                data-bs-placement="top"
-                data-bs-target="#add_discount_modal"
-              ></i>
-              <i
-                className="bi bi-x fs-4 text-danger mx-1 pointer "
-                title="حذف کد"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-              ></i>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <nav
-        aria-label="Page navigation example"
-        className="d-flex justify-content-center"
+const DiscounTstable = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const dataInfo = [
+    { field: "id", title: "#" },
+    { field: "title", title: "عنوان" },
+    { field: "code", title: "کد تخفیف" },
+    { field: "percent", title: "درصد تخفیف" },
+    {
+      field: null,
+      title: "تاریخ انقضا",
+      elements: (rowData) => convertDateToJalali(rowData.expire_at) ,
+    },
+    {
+      field: null,
+      title: "وضعیت",
+      elements: (rowData) => rowData.is_active ? "فعال" : "غیرفعال",
+    },
+    {
+      field: null,
+      title: "مربوط به",
+      elements: (rowData) => rowData.for_all ? "همه" : "تعدادی از محصولات",
+    },
+    {
+      field: null,
+      title: "عملیات",
+      elements: (rowData) => <Actions rowData={rowData} handleDeleteDiscount={handleDeleteDiscount}/>,
+    },
+  ];
+
+  const searchParams = {
+    title: "جستجو",
+    placeholder: "قسمتی از عنوان را وارد کنید",
+    searchField: "title",
+  };
+
+  const handleGetAllDiscounts = async ()=>{
+    setLoading(true)
+    const res = await getAllDiscountsService();
+    setLoading(false)
+    if (res.status === 200) {
+        setData(res.data.data);
+    }
+  }
+
+  const handleDeleteDiscount = async (discount)=>{
+    if (await Confirm(discount.title, 'آیا از حذف این کد تخفیف اطمینان دارید؟')) {
+      const res = await deleteDiscountService(discount.id)
+      if (res.status === 200) {
+        Alert('حذف شد...!', res.data.message, 'success');
+        setData(old=> old.filter(d => d.id != discount.id))
+      }
+    }
+  }
+  
+  useEffect(()=>{
+    handleGetAllDiscounts()
+  },[])
+    return (
+      <PaginatedTable
+        data={data}
+        dataInfo={dataInfo}
+        numOfPage={3}
+        searchParams={searchParams}
+        loading={loading}
       >
-        <ul className="pagination dir_ltr">
-          <li className="page-item">
-            <a className="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#">
-              1
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#">
-              2
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#">
-              3
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </>
-  );
-};
+        <AddButtonLink href={"/Discounts/add-discount-code"} /> 
+        <Outlet context={{setData}}/>
+      </PaginatedTable>
+    );
+}
 
-export default DiscountTable;
+export default DiscounTstable;

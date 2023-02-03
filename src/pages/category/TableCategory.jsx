@@ -61,18 +61,18 @@ const TableCategory = () => {
     { field: "id", title: "#" },
     { field: "title", title: "عنوان محصول" },
     { field: "parent_id", title: "والد" },
-  ];
-
-  const additionField = [
-    {
+     {
+      field: null,
       title: "تاریخ",
       elements: (rowData) => convertDateToJalali(rowData.created_at),
     },
     {
+      field: null,
       title: "نمایش در منو",
       elements: (rowData) => <ShowInMenu rowData={rowData} />,
     },
     {
+      field: null,
       title: "عملیات",
       elements: (rowData) => (
         <Actions
@@ -82,6 +82,8 @@ const TableCategory = () => {
       ),
     },
   ];
+
+
 
   const searchParams = {
     title: "جستجو",
@@ -95,7 +97,6 @@ const TableCategory = () => {
       <PaginatedTable
         data={data}
         dataInfo={dataInfo}
-        additionField={additionField}
         searchParams={searchParams}
         numOfPage={5}
         loading={loading}

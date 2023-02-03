@@ -12,29 +12,37 @@ export const deleteProductsService = (productId) => {
   return httpService(`/admin/products/${productId}`, "delete");
 };
 
-
-export const createNewProductService = (data) =>{
-  return httpService('/admin/products', 'post', data.image ? convertDataToFormData(data) : data)
-}
+export const createNewProductService = (data) => {
+  return httpService(
+    "/admin/products",
+    "post",
+    data.image ? convertDataToFormData(data) : data
+  );
+};
 
 export const editProductService = (productId, data) => {
-  return httpService(`/admin/products/${productId}`, 'put', data)
-}
+  return httpService(`/admin/products/${productId}`, "put", data);
+};
 
 export const addProductAttrService = (productId, data) => {
-  return httpService(`/admin/products/${productId}/add_attr`, "post" , data);
-}
+  return httpService(`/admin/products/${productId}/add_attr`, "post", data);
+};
 
 export const addProductImgService = (productId, data) => {
-  return httpService(`/admin/products/${productId}/add_image`, 'post', data)
-}
-
+  return httpService(`/admin/products/${productId}/add_image`, "post", data);
+};
 
 export const deleteProductImgService = (imageId) => {
-  return httpService(`/admin/products/gallery/${imageId}`, 'delete')
-}
-
+  return httpService(`/admin/products/gallery/${imageId}`, "delete");
+};
 
 export const setMainProductImgService = (imageId) => {
-  return httpService(`/admin/products/gallery/set_main/${imageId}`, 'get')
-}
+  return httpService(`/admin/products/gallery/set_main/${imageId}`, "get");
+};
+
+
+// in addDiscounts
+export const getAllProductTitlesService = () => {
+  return httpService(`/admin/products/all_titles`, "get");
+};
+// 

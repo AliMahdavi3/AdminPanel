@@ -9,6 +9,7 @@ import CategoryChildren from "./category/CategoryChildren";
 import Colors from "./colors/Colors";
 import Comment from "./comment/Comment";
 import Dashboard from "./dashboard/Dashboard";
+import AddDiscount from "./discount/AddDiscount";
 import Discount from "./discount/Discount";
 import Guaranties from "./guaranties/Guaranties";
 import ManageDelivery from "./managedelivery/ManageDelivery";
@@ -39,7 +40,9 @@ const Content = () => {
           <Route path="/Colors" element={<Colors />} />
           <Route path="/Guaranties" element={<Guaranties />} />
           <Route path="/Brands" element={<Brands />} />
-          <Route path="/Discount" element={<Discount />} />
+          <Route path="/Discounts" element={<Discount />} >
+            <Route path="add-discount-code"  element={<AddDiscount/>}/>
+          </Route>
           <Route path="/CartEdit" element={<CartEdit />} />
           <Route path="/Orders" element={<Orders />} />
           <Route path="/ManageDelivery" element={<ManageDelivery />} />

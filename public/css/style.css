@@ -122,6 +122,11 @@ body {
   color: antiquewhite;
 }
 
+.sidebar_items_scroll {
+  max-height: calc(100vh - 210px);
+  overflow: auto;
+}
+
 /* ---------------------------sidebar end----------------------------------- */
 /* ---------------------------Navbar---------------------------------------- */
 
@@ -525,4 +530,32 @@ body {
 
 .main-image {
   border-bottom: 3px solid green !important;
+}
+
+
+.form_date_picker .wrap-input100{
+  font-size: 15px;
+  line-height: 1.5;
+  color: #666;
+  display: block;
+  width: 100%;
+  background-color: #fff;
+  height: 41px;
+  padding-right: 18px;
+  border: 1px solid;
+  border-radius: 3px;
+}
+
+.form_date_picker .datePicker{
+  position: absolute;
+  top: 0;
+  height: 41px;
+  background-color: #fff;
+  border-radius: 3px;
+  z-index: 1;
+  border: 1px solid black;
+}
+
+.background-smoke {
+  background-color: rgb(0, 0, 0, 0.459);
 }
