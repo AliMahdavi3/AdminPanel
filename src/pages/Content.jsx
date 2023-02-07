@@ -20,6 +20,7 @@ import ProductGallery from "./product/gallery/ProductGallery";
 import Product from "./product/Product";
 import SetAttribute from "./product/setAttr/SetAttribute";
 import Questions from "./questions/Questions";
+import AddRoles from "./roles/AddRoles";
 import Roles from "./roles/Roles";
 import User from "./users/User";
 
@@ -47,7 +48,9 @@ const Content = () => {
           <Route path="/Orders" element={<Orders />} />
           <Route path="/ManageDelivery" element={<ManageDelivery />} />
           <Route path="/user" element={<User />} />
-          <Route path="/Roles" element={<Roles />} />
+          <Route path="/Roles" element={<Roles />} >
+            <Route path="add-role" element={<AddRoles/>}/>
+          </Route>
           <Route path="/Permissions" element={<Permissions />} />
           <Route path="/Questions" element={<Questions />} />
           <Route path="/Comment" element={<Comment />} />
