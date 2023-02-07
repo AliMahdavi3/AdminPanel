@@ -22,7 +22,7 @@ const months = [
   { id: 12, value: "اسفند" },
 ];
 
-const Date = ({ formik, name, label, yearsLimit }) => {
+const Date = ({ formik, name, label, yearsLimit, className }) => {
   const [day, setDay] = useState();
   const [month, setMonth] = useState();
   const [year, setYear] = useState();
@@ -59,7 +59,7 @@ const Date = ({ formik, name, label, yearsLimit }) => {
   };
 
   return (
-    <div className={`validate-input wrap-input100 form_date_picker`}>
+    <div className={`validate-input form_date_picker ${className}`}>
 
 
       <div className="input-group mb-3 pointer" onClick={handleShowDateConfig}>
