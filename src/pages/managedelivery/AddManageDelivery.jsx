@@ -1,67 +1,81 @@
-import React from "react";
+import { Form, Formik } from "formik";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
+import FormikControl from "../../components/form/FormikControl";
+import SubmitButton from "../../components/form/SubmitButton";
 import ModalContainer from "../../components/ModalContainer";
+import { initialValues, onSubmit, validationSchema } from "./core";
 
 const AddManageDelivery = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const deliveryToEdit = location.state?.deliveryToEdit;
+  const [reInitialValue, setReInitialValue] = useState(null);
+  const { setData } = useOutletContext();
+
+  useEffect(() => {
+    if (deliveryToEdit) setReInitialValue(deliveryToEdit);
+  }, []);
+
   return (
     <>
-      <button
-        className="btn btn-success p-0 px-2 d-flex justify-content-center align-items-center"
-        data-bs-toggle="modal"
-        data-bs-target="#add_delivery_modal"
-      >
-        <i className="bi bi-plus fs-3 text-light"></i>
-      </button>
       <ModalContainer
-        fullScreen={true}
+        className="show d-block"
+        fullScreen={false}
         id="add_delivery_modal"
-        title={"افزودن روش ارسال"}
+        title={deliveryToEdit ? "ویرایش روش ارسال" : "افزودن روش ارسال"}
+        closeFunction={() => navigate(-1)}
       >
         <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-12">
-              <div className="input-group my-3 dir-ltr">
-                <input type="text" className="form-control" placeholder="" />
-                <span className="input-group-text w_8rem justify-content-center">
-                  عنوان
-                </span>
-              </div>
-            </div>
-            <div className="col-12">
-              <div className="input-group my-3 dir-ltr">
-                <input
-                  type="number"
-                  className="form-control"
-                  placeholder="تومان (فقط عدد)"
-                />
-                <span className="input-group-text w_8rem justify-content-center">
-                  هزینه
-                </span>
-              </div>
-            </div>
-            <div className="col-12">
-              <div className="input-group my-3 dir-ltr">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="فقط عدد"
-                />
-                <span className="input-group-text w_8rem justify-content-center">
-                  مدت ارسال
-                </span>
-              </div>
-            </div>
-            <div className="col-12">
-              <div className="input-group my-3 dir-ltr">
-                <input type="text" className="form-control" placeholder="" />
-                <span className="input-group-text w_8rem justify-content-center">
-                  واحد مدت ارسال
-                </span>
-              </div>
-            </div>
-            <div className="btn_box text-center col-12 col-md-6 col-lg-8 mt-4">
-              <button className="btn btn-primary">ذخیره</button>
-            </div>
-          </div>
+          <Formik
+            initialValues={reInitialValue || initialValues}
+            onSubmit={(values, actions) =>
+              onSubmit(values, actions, setData, deliveryToEdit)
+            }
+            validationSchema={validationSchema}
+            enableReinitialize
+          >
+            {(formik) => {
+              return (
+                <Form>
+                  <div className="row justify-content-center">
+                    <FormikControl 
+                    control="input"
+                    type="text"
+                    name="title"
+                    label="عنوان"
+                    placeholder="فقط از حروف لاتین یا فارسی استفاده کنید"
+                    />
+                    <FormikControl 
+                    control="input"
+                    type="number"
+                    name="amount"
+                    label="مبلغ"
+                    placeholder="فقط از اعداد استفاده کنید"
+                    />
+                    <FormikControl 
+                    control="input"
+                    type="number"
+                    name="time"
+                    label="مدت ارسال"
+                    placeholder="فقط از اعداد استفاده کنید"
+                    />
+       
+                    <FormikControl 
+                    control="input"
+                    type="text"
+                    name="time_unit"
+                    label="واحد مدت"
+                    placeholder="فقط از حروف لاتین یا فارسی استفاده کنید"
+                    />
+                    <div className="text-center col-12 col-md-6 col-lg-8 mt-4">
+                      <SubmitButton/>
+                    </div>
+                  </div>
+                </Form>
+              );
+            }}
+          </Formik>
         </div>
       </ModalContainer>
     </>

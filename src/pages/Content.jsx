@@ -1,5 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import PermComponent from "../components/PermComponent";
+import { useHasPermissions } from "../hook/permissionsHook";
 import Logout from "./auth/Logout";
 import Brands from "./brands/Brands";
 import CartEdit from "./cart/CartEdit";
@@ -24,47 +26,74 @@ import AddRoles from "./roles/AddRoles";
 import Roles from "./roles/Roles";
 import AddUser from "./users/AddUser";
 import User from "./users/User";
+import AddManageDelivery from "./managedelivery/AddManageDelivery";
+import AddCart from "./cart/AddCart";
 
 const Content = () => {
+
+    const hasPermCategory = useHasPermissions("read_categories");
+    const hasPermDiscount = useHasPermissions("read_discounts");
+    const hasPermUser = useHasPermissions("read_users");
+    const hasPermRole = useHasPermissions("read_roles");
+    const hasPermDelivery = useHasPermissions("read_deliveries");
+    const hasPermCarts = useHasPermissions("read_carts");
+
   return (
     <>
       <section>
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/Categories" element={<Category />} >
-            <Route path=":categoryId" element={<CategoryChildren/>}/>
-          </Route>
-          <Route path="/Categories/:categoryId/atrributes" element={<AddAttributes />} />
-          <Route path="/Product" element={<Product />} />
-          <Route path="/product/add-product" element={<AddProduct />} />
-          <Route path="/product/set-attr" element={<SetAttribute />} />
-          <Route path="/product/gallery" element={<ProductGallery />} />
-          <Route path="/Colors" element={<Colors />} />
-          <Route path="/Guaranties" element={<Guaranties />} />
-          <Route path="/Brands" element={<Brands />} />
 
+          {hasPermCategory && (
+            <Route path="/Categories" element={<Category />} >
+              <Route path=":categoryId" element={<CategoryChildren/>}/>
+            </Route>
+          )}
 
-          <Route path="/Discounts" element={<Discount />} >
-            <Route path="add-discount-code"  element={<AddDiscount/>}/>
-          </Route>
+          <Route path="/Categories/:categoryId/atrributes"
+           element={<PermComponent component={<AddAttributes />} pTitle="read_category_attrs" />} />
+          <Route path="/Product" element={<PermComponent component={<Product />} pTitle="read_products" />} />
+          <Route path="/product/add-product" element={<PermComponent component={<AddProduct />} pTitle="create_product" />} />
+          <Route path="/product/set-attr" element={<PermComponent component={<SetAttribute />} pTitle="create_product_attr"/>} />
+          <Route path="/product/gallery" element={<PermComponent component={<ProductGallery />} pTitle="create_product_image"/>} />
+          <Route path="/Colors" element={<PermComponent component={<Colors />} pTitle="read_colors"/>} />
+          <Route path="/Guaranties" element={<PermComponent component={<Guaranties />} pTitle="read_guaranties"/>}  />
+          <Route path="/Brands" element={<PermComponent component={<Brands />} pTitle="read_brands"/>}  />
 
+          {hasPermDiscount && (
+            <Route path="/Discounts" element={<Discount />} >
+              <Route path="add-discount-code"  element={<PermComponent component={<AddDiscount />} pTitle="create_discount"/>}/>
+            </Route>
+           )};
+          
+          {hasPermCarts && (
+            <Route path="/CartEdit" element={<CartEdit />} >
+              <Route path="add-cart" element={<PermComponent component={<AddCart/>} pTitle="create_cart"/>}/>
+            </Route>
+          )};
 
-          <Route path="/CartEdit" element={<CartEdit />} />
           <Route path="/Orders" element={<Orders />} />
-          <Route path="/ManageDelivery" element={<ManageDelivery />} />
 
-
-          <Route path="/user" element={<User />} >
-            <Route path="add-user" element={<AddUser/>}/>
+          {hasPermDelivery && (
+          <Route path="/ManageDelivery" element={<ManageDelivery />}>
+              <Route  path="add-delivery" element={<PermComponent component={<AddManageDelivery/>} pTitle="create_delivery" />}/>
           </Route>
+          )}
+
+          {hasPermUser && (
+              <Route path="/user" element={<User />} >
+                <Route path="add-user" element={<PermComponent component={<AddUser/>} pTitle="create_user" />}/>
+            </Route>
+           )};
+
+          {hasPermRole && (
+            <Route path="/Roles" element={<Roles />} >
+              <Route path="add-role" element={<PermComponent component={<AddRoles/>} pTitle="create_role"/>}/>
+            </Route>
+          )}
 
 
-          <Route path="/Roles" element={<Roles />} >
-            <Route path="add-role" element={<AddRoles/>}/>
-          </Route>
-
-
-          <Route path="/Permissions" element={<Permissions />} />
+          <Route path="/Permissions" element={<PermComponent component={<Permissions />} pTitle="read_permissions"/>} />
           <Route path="/Questions" element={<Questions />} />
           <Route path="/Comment" element={<Comment />} />
           <Route path="/logout" element={<Logout />} />

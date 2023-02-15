@@ -19,7 +19,6 @@ export const onSubmit = async (values, actions, setData, discountToEdit) => {
     }
     if (discountToEdit) {
         const res = await updateDiscountService(discountToEdit.id, values)
-        console.log(res.data);
         if (res.status == 200) {
             Alert('انجام شد', res.data.message, 'success')
             setData(lastData=>{

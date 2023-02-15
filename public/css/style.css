@@ -37,6 +37,10 @@ body {
   font-family: "myfont4";
 }
 
+a {
+  text-decoration: none;
+}
+
 /* ------------------------------------------------------ */
 
 .sidebar {
@@ -129,6 +133,12 @@ body {
 
 /* ---------------------------sidebar end----------------------------------- */
 /* ---------------------------Navbar---------------------------------------- */
+.offcan {
+  background-color: rgb(69, 116, 177);
+  border: none;
+  border-radius: 0px 40px 40px 0px;
+  box-shadow: 20px 40px 40px;
+}
 
 .navbar {
   width: 100%;
@@ -532,8 +542,7 @@ body {
   border-bottom: 3px solid green !important;
 }
 
-
-.form_date_picker .wrap-input100{
+.form_date_picker .wrap-input100 {
   font-size: 15px;
   line-height: 1.5;
   color: #666;
@@ -546,7 +555,7 @@ body {
   border-radius: 3px;
 }
 
-.form_date_picker .datePicker{
+.form_date_picker .datePicker {
   position: absolute;
   top: 0;
   height: 41px;

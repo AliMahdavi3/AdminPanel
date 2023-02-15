@@ -17,7 +17,6 @@ const TableCategory = () => {
   const [data, setData] = useState([]);
   const [forceRender, setForceRender] = useState(0);
   const [loading, setLoading] = useState(false);
-
   const params = useParams();
 
   const handleGetCategories = async () => {
