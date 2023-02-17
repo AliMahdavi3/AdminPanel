@@ -22,6 +22,7 @@
     "react-redux": "^7.2.9",
     "react-router-dom": "^6.6.1",
     "react-scripts": "5.0.1",
+    "react-select-search": "^4.1.6",
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
     "sweetalert": "^2.1.2",

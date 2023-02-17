@@ -49,7 +49,6 @@ const ProductTable = () => {
   const handleGetProducts = async (page, count, char) => {
     setLoading(true);
     const res = await getAllProductsService(page, count, char);
-    console.log(res);
     res && setLoading(false);
     if (res.status === 200) {
       setData(res.data.data);
@@ -78,22 +77,20 @@ const ProductTable = () => {
     handleGetProducts(currentPage, countOnPage, searchChar);
   }, [currentPage]);
 
-  return (
-    <>
-      <PaginatedDataTable
-        tableData={data}
-        dataInfo={dataInfo}
-        searchParams={searchParams}
-        loading={loading}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        pageCount={pageCount}
-        handleSearch={handleSearch}
-      >
-        <AddButtonLink href="/product/add-product" />
-      </PaginatedDataTable>
-    </>
-  );
+    return (
+        <PaginatedDataTable
+          tableData={data}
+          dataInfo={dataInfo}
+          searchParams={searchParams}
+          loading={loading}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          pageCount={pageCount}
+          handleSearch={handleSearch}
+        >
+          <AddButtonLink href="/product/add-product" />
+        </PaginatedDataTable>
+    );
 };
 
 export default ProductTable;

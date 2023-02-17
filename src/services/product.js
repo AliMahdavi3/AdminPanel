@@ -41,6 +41,11 @@ export const setMainProductImgService = (imageId) => {
 };
 
 
+export const getOneProductService = (productId) => {
+  return httpService(`/admin/products/${productId}`, "get");
+};
+
+
 // in addDiscounts
 export const getAllProductTitlesService = () => {
   return httpService(`/admin/products/all_titles`, "get");

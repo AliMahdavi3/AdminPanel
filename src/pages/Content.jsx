@@ -37,6 +37,7 @@ const Content = () => {
     const hasPermRole = useHasPermissions("read_roles");
     const hasPermDelivery = useHasPermissions("read_deliveries");
     const hasPermCarts = useHasPermissions("read_carts");
+    const hasPermOrders = useHasPermissions("read_orders");
 
   return (
     <>
@@ -72,7 +73,12 @@ const Content = () => {
             </Route>
           )};
 
-          <Route path="/Orders" element={<Orders />} />
+          {hasPermCarts && (
+            <Route path="/Orders" element={<Orders />} >
+              <Route path="add-order" element={<PermComponent component={<AddCart/>} pTitle="create_cart"/>}/>
+            </Route>
+          )};
+
 
           {hasPermDelivery && (
           <Route path="/ManageDelivery" element={<ManageDelivery />}>
