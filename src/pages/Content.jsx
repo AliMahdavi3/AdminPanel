@@ -28,6 +28,7 @@ import AddUser from "./users/AddUser";
 import User from "./users/User";
 import AddManageDelivery from "./managedelivery/AddManageDelivery";
 import AddCart from "./cart/AddCart";
+import AddOrder from "./orders/AddOrder";
 
 const Content = () => {
 
@@ -75,7 +76,7 @@ const Content = () => {
 
           {hasPermCarts && (
             <Route path="/Orders" element={<Orders />} >
-              <Route path="add-order" element={<PermComponent component={<AddCart/>} pTitle="create_cart"/>}/>
+              <Route path="add-order" element={<PermComponent component={<AddOrder/>} pTitle="create_order"/>}/>
             </Route>
           )};
 

@@ -22,7 +22,7 @@ const months = [
   { id: 12, value: "اسفند" },
 ];
 
-const Date = ({ formik, name, label, yearsLimit, className }) => {
+const Date = ({ formik, name, label, yearsLimit, className, placeholder }) => {
   const [day, setDay] = useState();
   const [month, setMonth] = useState();
   const [year, setYear] = useState();
@@ -67,10 +67,12 @@ const Date = ({ formik, name, label, yearsLimit, className }) => {
           className="form-control pointer "
           type="text"
           name={name}
-          placeholder={'جهت انتخاب تاریخ کلیک کنید'}
+          placeholder={placeholder || 'جهت انتخاب تاریخ کلیک کنید'}
           disabled
         />
-        <span className="input-group-text justify-content-center">{label}</span>
+        {label && (
+          <span className="input-group-text justify-content-center">{label}</span>
+        )}
       </div>
 
       {showConfig ? (
