@@ -590,3 +590,12 @@ a {
   font-family: "BYekan" !important;
   text-align: right !important;
 }
+
+
+/* Chart.js */
+#myChart {
+    box-sizing: border-box;
+    display: block;
+    height: 60vh;
+    width: 100%;
+}

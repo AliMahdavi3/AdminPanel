@@ -51,3 +51,12 @@ export const getAllProductTitlesService = () => {
   return httpService(`/admin/products/all_titles`, "get");
 };
 // 
+
+// dashboard table
+export const getFewerProductsService = () => {
+  return httpService(`/admin/products/fewer_products`, "get");
+}
+
+export const toggleNotificationService = (productId) => {
+  return httpService(`/admin/products/toggle_notification/${productId}`, "get");
+}

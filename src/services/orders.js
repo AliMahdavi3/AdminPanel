@@ -20,3 +20,11 @@ export const editOrderService = (orderId, data) => {
 export const deleteOrderService = (orderId) => {
     return httpService(`/admin/orders/${orderId}`, "delete");
 };
+
+// dashboard
+export const getOrderStatisticsService = () => {
+    return httpService(`/admin/orders/orders_statistics`, "get");
+};
+export const getThisYearOrdersService = () => {
+    return httpService(`/admin/orders/this_year_orders`, "get");
+};
