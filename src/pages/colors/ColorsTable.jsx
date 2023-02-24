@@ -77,7 +77,7 @@ const ColorsTable = () => {
         loading={loading}
         dataInfo={dataInfo}
         searchParams={searchParams}
-        numOfPage={5}
+        numOfPage={8}
       >
         <AddColors
           setData={setData}

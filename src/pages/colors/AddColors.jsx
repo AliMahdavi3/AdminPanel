@@ -41,17 +41,17 @@ const AddColors = ({ setData, colorToEdit, setColorToEdit }) => {
       </button>
       <ModalContainer
         id="add_color_modal"
-        title="افزودن رنگ جدید"
+        title={colorToEdit ? "ویرایش رنگ" : "افزودن رنگ جدید"}
         fullScreen={false}
       >
         <div className="container">
           <div className="row justify-content-center">
             <Formik
               initialValues={reInitValue || initialValues}
-              validationSchema={validationSchema}
               onSubmit={(values, actions) =>
                 onSubmit(values, actions, colorToEdit, setData)
               }
+              validationSchema={validationSchema}
               enableReinitialize
             >
               <Form>
