@@ -23,6 +23,7 @@ export const onSubmit = async (values, actions, setData, brandToEdit) => {
     }
   } else {
     const res = await addNewBrandService(values);
+    console.log(res);
     if (res.status === 201) {
       Alert("انجام شد!", res.data.message, "success");
       setData((lastData) => [...lastData, res.data.data]);

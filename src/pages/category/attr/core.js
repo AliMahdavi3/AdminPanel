@@ -23,6 +23,7 @@ export const onSubmit = async (
     };
     if (attrToEdit) {
       const res = await editCategoryAttrService(attrToEdit.id, values);
+      console.log(res);
       if (res.status === 200) {
         setData((oldData) => {
           const newData = [...oldData];

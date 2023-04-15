@@ -52,9 +52,11 @@ const AddAttributes = () => {
     try {
       const res = await getCategoryAttrService(location.state.categoryData.id);
       if (res.status === 200) {
+        console.log(res);
         setData(res.data.data);
       }
     } catch (error) {
+      console.log(error.message);
     } finally {
       setLoading(false);
     }
@@ -70,6 +72,7 @@ const AddAttributes = () => {
         }
       } catch (error) {
         Alert("متاسفم!", "مشکلی از سمت سرور رخ داده است!", "danger");
+        console.log(error);
       }
     }
   };

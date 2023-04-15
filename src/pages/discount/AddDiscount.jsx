@@ -51,6 +51,7 @@ const AddDiscount = () => {
         if (discountToEdit) {
             setSelectedProducts(discountToEdit.products.map(p=>{return {id:p.id, value:p.title}}))
             const productIds = discountToEdit.products.map(p=>p.id).join("-");
+            console.log(productIds);
             setReInitialValues({
                 ...discountToEdit,
                 expire_at: convertDateToJalali(discountToEdit.expire_at, 'jD / jM / jYYYY'),

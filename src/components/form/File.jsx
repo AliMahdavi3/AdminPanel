@@ -6,6 +6,7 @@ const File = ({ label, name, placeholder, className }) => {
   return (
     <FastField>
       {({ form }) => {
+        console.log(form);
         return (
           <div className={`col-12 ${className}`}>
             <div className="input-group mb-3 dir-ltr">

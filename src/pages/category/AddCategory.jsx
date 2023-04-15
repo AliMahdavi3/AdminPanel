@@ -25,6 +25,7 @@ const AddCategory = ({ setForceRender }) => {
       const res = await getCategoryService();
       if (res.status === 200) {
         const allParents = res.data.data;
+        console.log(allParents);
         setParents(
           allParents.map((p) => {
             return { id: p.id, value: p.title };
@@ -39,6 +40,7 @@ const AddCategory = ({ setForceRender }) => {
   const handleGetSingleCategory = async () => {
     try {
       const res = await getSingleCategoryService(editId);
+      console.log(res);
       if (res.status == 200) {
         const oldCategory = res.data.data;
         setEditCategory(oldCategory);
