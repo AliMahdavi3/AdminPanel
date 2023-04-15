@@ -41,9 +41,7 @@ export const onSubmit = async (values, actions, setForceRender, editId) => {
       }
     }
   } catch (error) {
-    console.log(error.message);
   }
-  console.log(values);
 };
 
 export const validationSchema = Yup.object({

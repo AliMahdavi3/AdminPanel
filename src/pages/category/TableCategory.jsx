@@ -27,7 +27,6 @@ const TableCategory = () => {
         setData(res.data.data);
       }
     } catch (error) {
-      console.log(error.message);
     } finally {
       setLoading(false);
     }
@@ -47,7 +46,6 @@ const TableCategory = () => {
           Alert("انجام شد", res.data.message, "success");
         }
       } catch (error) {
-        console.log(error);
       }
     }
   };

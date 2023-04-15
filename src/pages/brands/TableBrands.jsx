@@ -48,7 +48,6 @@ const TableBrands = () => {
   const handlGetAllBrands = async () => {
     setLoading(true);
     const res = await getAllBrandService();
-    console.log(res);
     res && setLoading(false);
     if (res.status === 200) {
       setData(res.data.data);

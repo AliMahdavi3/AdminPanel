@@ -8,14 +8,12 @@ const Ckeditor = ({ label, name, placeholder, className }) => {
   return (
     <Field>
       {({ form }) => {
-        console.log(form.values.descriptions);
         return (
           <div className={`col-12 ${className} mb-4`}>
             <CKEditor
               editor={ ClassicEditor }
               data={form.values[name] || `<p>${label} : ${placeholder}</p>`}
               onReady={(editor) => {
-                console.log("ready");
               }}
               onChange={(event, editor) => {
                 const data = editor.getData();
