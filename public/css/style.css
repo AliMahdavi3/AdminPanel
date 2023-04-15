@@ -357,27 +357,7 @@ a {
 /* ---------------------------Category end---------------------------------------- */
 /* --------------------------- Login --------------------------------------------- */
 
-.form-switch .form-check-input {
-  width: 2em;
-  margin-right: 1.5em;
-}
 
-.login form {
-  border: none;
-  margin-top: 50px;
-  box-shadow: 10px 30px 40px;
-  border-radius: 10px;
-}
-
-.input-100 {
-  outline: none;
-  border: none;
-  box-shadow: 5px 6px 8px;
-}
-
-.input-100:hover {
-  box-shadow: 4px 4px 4px #000000;
-}
 
 .boxShadow {
   box-shadow: 10px 10px 20px black;
@@ -385,6 +365,10 @@ a {
 
 .spinner-login {
   font-size: 5px;
+}
+
+.login form {
+  background-color: rgba(13, 182, 140, 0.6);
 }
 
 .login-btn button {

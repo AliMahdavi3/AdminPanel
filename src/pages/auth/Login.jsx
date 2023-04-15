@@ -53,8 +53,8 @@ function Login() {
     >
       {(formik) => {
         return (
-          <div className="container login mt-5 d-flex justify-content-center align-items-center">
-            <Form className=" py-4 px-3 text-center">
+          <div className="container login d-flex justify-content-center align-items-center">
+            <Form className=" py-4 px-3 w-50 mt-5 rounded-5 shadow-lg text-center">
               <span className="fs-3 text">ورود اعضا</span>
 
               <AuthFormControl
@@ -63,6 +63,7 @@ function Login() {
                 type="phone"
                 name="phone"
                 label="phone"
+                className="w-100 border-0 shadow-lg"
               />
 
               <AuthFormControl
@@ -71,6 +72,7 @@ function Login() {
                 type="password"
                 name="password"
                 label="password"
+                className="w-100 border-0 shadow-lg"
               />
               <AuthFormControl
                 formik={formik}
