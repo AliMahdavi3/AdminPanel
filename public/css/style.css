@@ -368,7 +368,8 @@ a {
 }
 
 .login form {
-  background-color: rgba(13, 182, 140, 0.6);
+  background-color: rgba(122, 122, 122, 0.3);
+  box-shadow: 20px 30px 40px;
 }
 
 .login-btn button {
