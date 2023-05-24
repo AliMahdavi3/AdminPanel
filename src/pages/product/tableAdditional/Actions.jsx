@@ -23,7 +23,6 @@ const Actions = ({ rowData, handleDeleteProducts }) => {
         title="تصاویر"
         data-bs-toggle="tooltip"
         onClick={()=>navigation('/product/gallery', {state:{selectedProduct:rowData}})}
-
       ></i>
 
       <i

@@ -356,9 +356,6 @@ a {
 
 /* ---------------------------Category end---------------------------------------- */
 /* --------------------------- Login --------------------------------------------- */
-
-
-
 .boxShadow {
   box-shadow: 10px 10px 20px black;
 }
@@ -370,6 +367,7 @@ a {
 .login form {
   background-color: rgba(122, 122, 122, 0.3);
   box-shadow: 20px 30px 40px;
+  width: 50%;
 }
 
 .login-btn button {
@@ -384,6 +382,12 @@ a {
   background-color: #be064d;
   transition: 0.1s;
   box-shadow: 5px 6px 7px black;
+}
+
+@media screen and (max-width: 500px) {
+  .login form{
+    width: 100%;
+  }
 }
 /* --------------------------- Login end --------------------------------------------- */
 
